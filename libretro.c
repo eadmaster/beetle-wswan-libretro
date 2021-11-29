@@ -95,7 +95,7 @@ struct ws_mono_palette
 };
 
 struct ws_mono_palette ws_mono_palettes[] = {
-   { "default",                0x000000, 0xFFFFFF },
+   { "default",                0x0055AA, 0x55AAFF },
    { "wonderswan",             0x3E3D20, 0x9B9D66 },
    { "wondeswan_color",        0x1B201E, 0xD7D49D },
    { "swancrystal",            0x151108, 0xFFFCCA },

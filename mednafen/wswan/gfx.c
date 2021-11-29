@@ -269,9 +269,14 @@ void WSwan_SetLayerEnableMask(uint64 mask)
 
 #define LERP_MONO_PALETTE_COLOR(start, end, offset) (uint32)(((float)(((15 - offset) * start) + (offset * end)) / 15.0f) + 0.5f)
 
+/*
+# include <stdlib.h>
+# include <stdio.h>
+* */
 void WSwan_SetMonoPalette(int depth, uint32 mono_start, uint32 mono_end)
 {
    unsigned i;
+
 
    uint32 r_start = (mono_start >> 16) & 0xFF;
    uint32 g_start = (mono_start >>  8) & 0xFF;
@@ -280,13 +285,18 @@ void WSwan_SetMonoPalette(int depth, uint32 mono_start, uint32 mono_end)
    uint32 r_end   = (mono_end   >> 16) & 0xFF;
    uint32 g_end   = (mono_end   >>  8) & 0xFF;
    uint32 b_end   = (mono_end        ) & 0xFF;
-
+   
    for(i = 0; i < 16; i++)
    {
-      uint32 neo_r = LERP_MONO_PALETTE_COLOR(r_start, r_end, i);
-      uint32 neo_g = LERP_MONO_PALETTE_COLOR(g_start, g_end, i);
+      uint32 neo_r = LERP_MONO_PALETTE_COLOR(r_start, r_end, i * 8);
+      uint32 neo_g = LERP_MONO_PALETTE_COLOR(g_start, g_end, i * 2);
       uint32 neo_b = LERP_MONO_PALETTE_COLOR(b_start, b_end, i);
 
+/*
+   printf("%X\n", neo_r);
+   printf("%X\n", neo_g);
+   printf("%X\n", neo_b);
+*/ 
       switch(depth)
       {
          case 15: ColorMapG[i] = MAKECOLOR_15(neo_r, neo_g, neo_b, 0); break;
